@@ -31,10 +31,7 @@ RUN tar -xpf libjpeg-turbo-${LIBJPEGTURBO_VERSION}.tar.gz
 
 WORKDIR libjpeg-turbo-${LIBJPEGTURBO_VERSION}
 
-RUN <<EOS
-set -eux
-
-cmake \
+RUN cmake \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DCMAKE_INSTALL_LIBDIR=/usr/lib \
   -DBUILD_SHARED_LIBS=True \
@@ -43,9 +40,10 @@ cmake \
   -DWITH_JPEG8=1 \
   -DWITH_JAVA=1
 
-make
+RUN make
 
-checkinstall --default --install=no
+RUN checkinstall --default --install=no
 
-ln libjpeg-turbo-${LIBJPEGTURBO_VERSION}/libjpeg-turbo_${LIBJPEGTURBO_VERSION}-1_${TARGETARCH}.deb libjpeg-turbo.deb
-EOS
+WORKDIR /tmp
+
+RUN ln libjpeg-turbo-${LIBJPEGTURBO_VERSION}/libjpeg-turbo_${LIBJPEGTURBO_VERSION}-1_${TARGETARCH}.deb libjpeg-turbo_$TARGETARCH-$TARGETVARIANT.deb
