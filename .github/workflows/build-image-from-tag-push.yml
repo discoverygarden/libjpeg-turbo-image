@@ -30,3 +30,4 @@ jobs:
       # XXX: ubuntu-latest moving to 24.04 seems to have caused some builds to
       # start segfaulting, in particular: the arm64 build of TurboJPEG.
       runs-on: ubuntu-22.04
+
